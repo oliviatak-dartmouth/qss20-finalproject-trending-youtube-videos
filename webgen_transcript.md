@@ -1,10 +1,4 @@
-# Agentic Analysis: Website Generation Workflow
-## QSS20 Final Project: YouTube Trending Video Sentiment Analysis
 
-**Student:** Olivia Tak
-**Tool:** Claude Code / CoWork
-
----
 
 **Q:** ok i need to make a website. look at my paper, my jupyter notebook, Final Deliverables file. i want to make it social media colour coded and have it be creative, but also professional enough for a coding project that i should be able to show employers. i dont want it to be too text heavy. it has to be live and linkable by the Sunday June 7 deadline. suggested stack is React and Vercel
 
