@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1280" />
+<title>Direction A — YouTube Native</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; background:#0F0F0F; color:#fff; }
+
+  /* NAV */
+  nav {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:1rem 2.5rem;
+    background:#0F0F0F;
+    border-bottom:1px solid #272727;
+  }
+  .nav-logo {
+    display:flex; align-items:center; gap:0.6rem;
+    font-weight:800; font-size:0.95rem; letter-spacing:-0.01em;
+  }
+  .yt-icon {
+    width:32px; height:22px; background:#FF0000; border-radius:5px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:10px;
+  }
+  .yt-icon::after { content:'▶'; color:white; font-size:10px; }
+  .nav-links { display:flex; gap:2rem; font-size:0.82rem; color:#aaa; list-style:none; }
+
+  /* HERO */
+  .hero {
+    padding:5rem 2.5rem 4rem;
+    background:linear-gradient(180deg, #0F0F0F 0%, #111 100%);
+    position:relative; overflow:hidden;
+  }
+  .hero::before {
+    content:''; position:absolute; top:-120px; left:50%; transform:translateX(-50%);
+    width:700px; height:400px;
+    background:radial-gradient(ellipse, rgba(255,0,0,0.12) 0%, transparent 70%);
+    pointer-events:none;
+  }
+  .hero-inner { max-width:780px; margin:0 auto; text-align:center; position:relative; }
+
+  .hero-tag {
+    display:inline-flex; align-items:center; gap:0.5rem;
+    background:rgba(255,0,0,0.12); border:1px solid rgba(255,0,0,0.3);
+    color:#FF4444; padding:0.35rem 1rem; border-radius:999px;
+    font-size:0.7rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+    margin-bottom:1.6rem;
+  }
+  .hero h1 {
+    font-size:3.4rem; font-weight:900; line-height:1.1; letter-spacing:-0.03em;
+    margin-bottom:1.2rem;
+  }
+  .hero h1 em { font-style:normal; color:#FF0000; }
+  .hero-sub { font-size:1rem; color:#888; max-width:480px; margin:0 auto 2.5rem; }
+
+  .finding-card {
+    background:#1A1A1A; border:1.5px solid #FBBF24;
+    border-radius:14px; padding:1.4rem 2rem;
+    max-width:540px; margin:0 auto 2.5rem;
+  }
+  .finding-card .fc-label {
+    font-size:0.62rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;
+    color:#FBBF24; margin-bottom:0.5rem;
+  }
+  .finding-card p { font-size:1rem; font-weight:600; color:#fff; line-height:1.5; }
+
+  /* Thumbnail-style stat cards */
+  .thumb-row {
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1rem;
+    max-width:900px; margin:0 auto;
+  }
+  .thumb {
+    background:#1A1A1A; border-radius:12px; overflow:hidden;
+    border:1px solid #2A2A2A;
+  }
+  .thumb-bar { height:4px; }
+  .thumb-body { padding:1rem 1.1rem 1.2rem; }
+  .thumb-num { font-size:1.9rem; font-weight:900; letter-spacing:-0.03em; display:block; margin-bottom:0.2rem; }
+  .thumb-label { font-size:0.68rem; color:#888; text-transform:uppercase; letter-spacing:0.06em; font-weight:600; }
+
+  /* Progress bar divider */
+  .yt-divider {
+    height:3px; background:#272727; position:relative; margin:3rem 0 0;
+  }
+  .yt-divider-fill { height:100%; width:35%; background:#FF0000; border-radius:2px; }
+
+  /* SECTION */
+  .section { padding:4rem 2.5rem; max-width:1060px; margin:0 auto; }
+  .sec-label { font-size:0.7rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#FF4444; margin-bottom:0.6rem; }
+  .sec-title { font-size:2rem; font-weight:800; letter-spacing:-0.02em; margin-bottom:1rem; }
+  .sec-body  { font-size:0.93rem; color:#999; line-height:1.8; max-width:620px; }
+
+  .hyp-grid { display:grid; grid-template-columns:1fr auto 1fr; gap:1.25rem; align-items:center; margin-top:2rem; }
+  .hyp-card { background:#1A1A1A; border:1px solid #2A2A2A; border-radius:14px; padding:1.5rem; }
+  .hyp-card.exp { border-top:3px solid #60A5FA; }
+  .hyp-card.fnd { border-top:3px solid #FBBF24; }
+  .hyp-tag { font-size:0.62rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#555; display:block; margin-bottom:0.75rem; }
+  .hyp-card h3 { font-size:0.95rem; font-weight:700; margin-bottom:0.4rem; }
+  .hyp-card p  { font-size:0.8rem; color:#777; line-height:1.6; }
+  .vs { width:38px; height:38px; background:#FF0000; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.7rem; font-weight:800; flex-shrink:0; }
+
+  .note { font-size:0.72rem; color:#555; margin-top:3rem; text-align:center; font-style:italic; }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo">
+    <div class="yt-icon"></div>
+    YouTube Virality Study
+  </div>
+  <ul class="nav-links">
+    <li>Question</li><li>Data</li><li>Method</li><li>Results</li><li>Takeaway</li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">▶ QSS 20 · Dartmouth College · 2026</div>
+    <h1>Does emotional language help a YouTube video <em>go viral?</em></h1>
+    <p class="hero-sub">12,176 trending US videos. Sentiment analysis on every title. One finding that flips the conventional wisdom.</p>
+    <div class="finding-card">
+      <div class="fc-label">Key finding</div>
+      <p>Neutral titles get more views than emotional ones — even controlling for content category, channel size, and days on trending.</p>
+    </div>
+    <div class="thumb-row">
+      <div class="thumb">
+        <div class="thumb-bar" style="background:#FF0000"></div>
+        <div class="thumb-body">
+          <span class="thumb-num">12,176</span>
+          <span class="thumb-label">Unique videos</span>
+        </div>
+      </div>
+      <div class="thumb">
+        <div class="thumb-bar" style="background:#FBBF24"></div>
+        <div class="thumb-body">
+          <span class="thumb-num" style="color:#FBBF24">54.9%</span>
+          <span class="thumb-label">Neutral titles</span>
+        </div>
+      </div>
+      <div class="thumb">
+        <div class="thumb-bar" style="background:#34D399"></div>
+        <div class="thumb-body">
+          <span class="thumb-num">2023</span>
+          <span class="thumb-label">Full year data</span>
+        </div>
+      </div>
+      <div class="thumb">
+        <div class="thumb-bar" style="background:#F87171"></div>
+        <div class="thumb-body">
+          <span class="thumb-num" style="color:#F87171">−0.045</span>
+          <span class="thumb-label">Arousal vs views (r)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="yt-divider"><div class="yt-divider-fill"></div></div>
+</div>
+
+<div class="section">
+  <div class="sec-label">01: The Question</div>
+  <h2 class="sec-title">Does emotional content go viral? Depends where you look.</h2>
+  <p class="sec-body">A well-known 2012 study found emotionally charged content spreads more. But YouTube works differently — it's driven by an algorithm that rewards watch time, not shares. This project tests whether the same rule applies.</p>
+  <div class="hyp-grid" style="margin-top:2rem">
+    <div class="hyp-card exp">
+      <span class="hyp-tag">Prior research predicts</span>
+      <h3>High arousal titles spread more</h3>
+      <p>Studies on NYT articles and Twitter both found emotional content performs better.</p>
+    </div>
+    <div class="vs">VS</div>
+    <div class="hyp-card fnd">
+      <span class="hyp-tag">This study found</span>
+      <h3 style="color:#FBBF24">Neutral titles win on YouTube</h3>
+      <p>The algorithm rewards watch time. Neutral, descriptive titles may convert clicks to sustained viewing more reliably.</p>
+    </div>
+  </div>
+</div>
+
+<p class="note">Direction A: YouTube-native — dark theme, red accents, thumbnail-style stat cards, play button logo, YouTube progress bar divider</p>
+</body>
+</html>

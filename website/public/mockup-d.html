@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=1280"/>
+<title>Direction D — Scrapbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Caveat:wght@400;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family:'Inter',sans-serif;
+  background:#F5F0E8;
+  color:#1A1A1A;
+  /* subtle paper grain */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+/* NAV */
+nav {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1rem 2.5rem;
+  background:rgba(245,240,232,0.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1.5px solid #DDD5C8;
+  position:sticky; top:0; z-index:100;
+}
+.nav-logo {
+  font-family:'Caveat',cursive;
+  font-size:1.3rem; font-weight:700; letter-spacing:0.01em;
+  display:flex; align-items:center; gap:0.5rem;
+}
+.nav-logo .yt {
+  width:28px; height:20px; background:#FF0000; border-radius:4px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:8px; color:white; font-family:'Inter',sans-serif; font-weight:900;
+}
+.nav-logo .yt::after { content:'▶'; }
+.nav-links { display:flex; gap:2rem; font-size:0.82rem; color:#888; list-style:none; }
+
+/* HERO */
+.hero {
+  padding:4.5rem 2.5rem 3.5rem;
+  max-width:1200px; margin:0 auto;
+  position:relative;
+}
+
+/* tape strip decoration */
+.tape {
+  position:absolute;
+  height:22px; border-radius:2px;
+  background:rgba(255,220,100,0.55);
+  border:1px solid rgba(200,170,60,0.3);
+}
+
+.hero-eyebrow {
+  font-family:'Caveat',cursive;
+  font-size:1.1rem; color:#888;
+  margin-bottom:1rem;
+  display:flex; align-items:center; gap:0.5rem;
+}
+.hero-eyebrow::before { content:''; display:block; width:32px; height:1.5px; background:#BBB; }
+
+/* Two-column hero layout */
+.hero-cols { display:grid; grid-template-columns:1fr 380px; gap:3rem; align-items:start; }
+
+.hero h1 {
+  font-family:'DM Serif Display',serif;
+  font-size:3.6rem; font-weight:400; line-height:1.08;
+  letter-spacing:-0.01em; margin-bottom:1.2rem;
+}
+.hero h1 em { font-style:italic; color:#E8184D; }
+.hero-sub { font-size:1rem; color:#666; line-height:1.75; max-width:460px; }
+
+/* Sticky note - key finding */
+.sticky {
+  background:#FEFAAA;
+  border-radius:3px 3px 3px 3px;
+  padding:1.5rem 1.5rem 2rem;
+  box-shadow:2px 3px 10px rgba(0,0,0,0.12), 0 1px 0 rgba(0,0,0,0.06);
+  position:relative;
+  transform:rotate(1.5deg);
+  /* folded corner */
+}
+.sticky::after {
+  content:'';
+  position:absolute;
+  bottom:0; right:0;
+  border-style:solid;
+  border-width:0 0 22px 22px;
+  border-color:transparent transparent #D4CE60 transparent;
+}
+.sticky-label {
+  font-family:'Caveat',cursive;
+  font-size:0.9rem; color:#888;
+  margin-bottom:0.75rem;
+}
+.sticky p {
+  font-size:0.95rem; font-weight:700; color:#1A1A1A; line-height:1.5;
+}
+
+/* Polaroid stat cards */
+.polaroids {
+  display:flex; gap:1rem; flex-wrap:wrap;
+  margin-top:2.5rem;
+}
+.polaroid {
+  background:white;
+  padding:0.9rem 0.9rem 1.4rem;
+  box-shadow:2px 3px 12px rgba(0,0,0,0.1);
+  display:flex; flex-direction:column; gap:0;
+  position:relative;
+}
+.polaroid:nth-child(1) { transform:rotate(-2deg); }
+.polaroid:nth-child(2) { transform:rotate(1deg); margin-top:8px; }
+.polaroid:nth-child(3) { transform:rotate(-1.5deg); margin-top:-4px; }
+.polaroid:nth-child(4) { transform:rotate(2deg); margin-top:4px; }
+
+.polaroid-top {
+  width:110px; height:72px; border-radius:2px;
+  display:flex; align-items:center; justify-content:center;
+  margin-bottom:0.6rem;
+  font-size:1.6rem; font-weight:900; letter-spacing:-0.03em;
+}
+.polaroid-label {
+  font-family:'Caveat',cursive;
+  font-size:0.9rem; color:#666; text-align:center;
+  line-height:1.2;
+}
+
+/* SENTIMENT SECTION */
+.section {
+  max-width:1100px; margin:0 auto;
+  padding:3rem 2.5rem;
+  position:relative;
+}
+
+.section-header {
+  display:flex; align-items:baseline; gap:1rem; margin-bottom:2rem;
+}
+.sec-num {
+  font-family:'Caveat',cursive;
+  font-size:3.5rem; color:#DDD5C8; font-weight:700; line-height:1;
+  flex-shrink:0;
+}
+.sec-title-wrap {}
+.sec-sup {
+  font-size:0.65rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;
+  color:#E8184D; margin-bottom:0.3rem;
+}
+.sec-title {
+  font-family:'DM Serif Display',serif;
+  font-size:2rem; font-weight:400; line-height:1.2;
+}
+
+/* Sentiment colour pills - big version */
+.sent-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:1rem;
+  margin-top:2rem;
+}
+.sent-card {
+  padding:1.4rem 1.5rem;
+  border-radius:12px;
+  position:relative; overflow:hidden;
+}
+.sent-card:nth-child(1) { background:#FFFBEB; border:1.5px solid #FBBF24; transform:rotate(-0.8deg); }
+.sent-card:nth-child(2) { background:#FEF2F2; border:1.5px solid #F87171; transform:rotate(0.5deg); }
+.sent-card:nth-child(3) { background:#ECFDF5; border:1.5px solid #34D399; transform:rotate(-0.3deg); }
+.sent-card .sc-pct {
+  font-size:2.8rem; font-weight:900; letter-spacing:-0.04em;
+  display:block; line-height:1; margin-bottom:0.3rem;
+}
+.sent-card .sc-name {
+  font-family:'Caveat',cursive;
+  font-size:1.2rem; font-weight:700;
+}
+.sent-card .sc-desc { font-size:0.78rem; color:#888; margin-top:0.3rem; }
+
+/* Bar chart placeholder */
+.chart-pin {
+  background:white;
+  border-radius:4px;
+  padding:1.5rem;
+  box-shadow:2px 3px 12px rgba(0,0,0,0.1);
+  margin-top:2rem;
+  position:relative;
+}
+.chart-pin::before {
+  content:'📌';
+  position:absolute; top:-14px; left:50%; transform:translateX(-50%);
+  font-size:1.4rem;
+}
+.chart-title {
+  font-family:'Caveat',cursive;
+  font-size:1.1rem; color:#444; text-align:center; margin-bottom:1rem;
+}
+/* mini bar chart visual */
+.mini-bars { display:flex; align-items:flex-end; gap:1rem; height:120px; padding:0 2rem; justify-content:center; }
+.bar-col { display:flex; flex-direction:column; align-items:center; gap:0.4rem; }
+.bar { width:70px; border-radius:4px 4px 0 0; }
+.bar-label { font-size:0.75rem; font-weight:700; }
+.bar-val { font-size:0.72rem; color:#888; }
+
+/* Torn paper divider */
+.torn {
+  height:40px;
+  background:#E8E0D4;
+  position:relative;
+  margin:0;
+  clip-path:polygon(0% 0%, 3% 100%, 7% 20%, 11% 90%, 15% 10%, 19% 80%, 23% 5%, 27% 85%, 31% 15%, 35% 95%, 39% 20%, 43% 85%, 47% 10%, 51% 90%, 55% 25%, 59% 80%, 63% 10%, 67% 90%, 71% 20%, 75% 85%, 79% 15%, 83% 80%, 87% 10%, 91% 90%, 95% 20%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+.note { font-size:0.72rem; color:#aaa; text-align:center; font-style:italic; padding:1.5rem; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <div class="yt"></div>
+    YouTube Virality Study
+  </div>
+  <ul class="nav-links">
+    <li>Question</li><li>Data</li><li>Method</li><li>Results</li><li>Takeaway</li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <!-- tape strip top-left -->
+  <div class="tape" style="width:80px;top:28px;left:140px;transform:rotate(-3deg)"></div>
+
+  <div class="hero-eyebrow">QSS 20 · Dartmouth College · 2026</div>
+
+  <div class="hero-cols">
+    <div>
+      <h1>Does emotional language help a YouTube video <em>go viral?</em></h1>
+      <p class="hero-sub">12,176 trending US videos. Sentiment analysis on every title. One finding that goes against what you'd expect.</p>
+
+      <!-- Polaroid stat cards -->
+      <div class="polaroids">
+        <div class="polaroid">
+          <div class="polaroid-top" style="background:#FFF0F4">
+            <span style="color:#E8184D;font-size:1.3rem">12,176</span>
+          </div>
+          <div class="polaroid-label">unique<br>videos</div>
+        </div>
+        <div class="polaroid">
+          <div class="polaroid-top" style="background:#FFFBEB">
+            <span style="color:#D97706;font-size:1.5rem">54.9%</span>
+          </div>
+          <div class="polaroid-label">neutral<br>titles</div>
+        </div>
+        <div class="polaroid">
+          <div class="polaroid-top" style="background:#F0FFF4">
+            <span style="color:#059669;font-size:1.3rem">15 cats</span>
+          </div>
+          <div class="polaroid-label">content<br>categories</div>
+        </div>
+        <div class="polaroid">
+          <div class="polaroid-top" style="background:#FEF2F2">
+            <span style="color:#DC2626;font-size:1.5rem">−0.045</span>
+          </div>
+          <div class="polaroid-label">arousal<br>vs views</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- sticky note -->
+    <div style="padding-top:1rem;">
+      <div class="sticky">
+        <div class="sticky-label">✏️ key finding —</div>
+        <p>Neutral titles get more views than emotional ones. That holds even after controlling for content category, channel size, and days on trending.</p>
+      </div>
+      <!-- tape on sticky -->
+      <div style="position:relative;top:-180px;left:130px;">
+        <div class="tape" style="width:55px;transform:rotate(-8deg);"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="torn"></div>
+
+<!-- SENTIMENT SECTION -->
+<div style="background:#EDE8DF;padding:3rem 0 0;">
+  <div class="section">
+    <div class="section-header">
+      <div class="sec-num">01</div>
+      <div class="sec-title-wrap">
+        <div class="sec-sup">The Data</div>
+        <div class="sec-title">How we labelled 12,176 video titles</div>
+      </div>
+    </div>
+
+    <div class="sent-grid">
+      <div class="sent-card">
+        <span class="sc-pct" style="color:#D97706">54.9%</span>
+        <span class="sc-name" style="color:#D97706">Neutral</span>
+        <p class="sc-desc">No detectable emotional signal. Most trending titles fall here.</p>
+      </div>
+      <div class="sent-card">
+        <span class="sc-pct" style="color:#059669">22.8%</span>
+        <span class="sc-name" style="color:#059669">Positive</span>
+        <p class="sc-desc">Compound score above 0.05 on the VADER scale.</p>
+      </div>
+      <div class="sent-card">
+        <span class="sc-pct" style="color:#DC2626">22.3%</span>
+        <span class="sc-name" style="color:#DC2626">Negative</span>
+        <p class="sc-desc">Compound score below -0.05. Highest in News & Politics.</p>
+      </div>
+    </div>
+
+    <!-- pinned chart -->
+    <div class="chart-pin">
+      <div class="chart-title">Average views by title sentiment (in millions)</div>
+      <div class="mini-bars">
+        <div class="bar-col">
+          <div class="bar" style="height:90px;background:#FBBF24;"></div>
+          <div class="bar-label" style="color:#D97706">1.42M</div>
+          <div class="bar-val">Neutral</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar" style="height:74px;background:#F87171;"></div>
+          <div class="bar-label" style="color:#DC2626">1.16M</div>
+          <div class="bar-val">Negative</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar" style="height:71px;background:#34D399;"></div>
+          <div class="bar-label" style="color:#059669">1.11M</div>
+          <div class="bar-val">Positive</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p class="note" style="background:#EDE8DF;padding-bottom:2rem;">
+  Direction D: Scrapbook — paper texture background, sticky note finding, polaroid stat cards, rotated elements, handwritten Caveat font accents, washi tape strips, torn paper dividers, pinned charts
+</p>
+
+</body>
+</html>

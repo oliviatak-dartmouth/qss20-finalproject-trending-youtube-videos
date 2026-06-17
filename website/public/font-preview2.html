@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=1280"/>
+<title>Font Options 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=DM+Serif+Display:ital@0;1&family=Space+Mono:wght@400;700&family=Dancing+Script:wght@600;700&family=Satisfy&family=Kalam:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: #FAF7F3;
+  color: #1C1C1E;
+  padding: 2.5rem 2rem;
+}
+.page-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.6rem; margin-bottom: 0.25rem;
+}
+.page-sub { font-size: 0.82rem; color: #A09080; margin-bottom: 2rem; }
+
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+
+.card {
+  background: white;
+  border: 1px solid #E5DDD4;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.card.fav { border: 2px solid #059669; }
+
+.card-header {
+  padding: 0.6rem 1.1rem;
+  background: #FAF7F3;
+  border-bottom: 1px solid #F0EBE3;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #A09080; }
+.badge { font-size: 0.62rem; font-weight: 700; padding: 0.18rem 0.5rem; border-radius: 99px; }
+.badge.liked  { background: #ECFDF5; color: #059669; }
+.badge.cursive { background: #EFF6FF; color: #3B82F6; }
+
+.body { padding: 1.25rem 1.1rem; }
+
+/* headline stays DM Serif */
+.eyebrow { margin-bottom: 0.4rem; font-size: 0.82rem; color: #9B9080; }
+.headline {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.45rem; line-height: 1.15; margin-bottom: 1rem;
+}
+.headline em { font-style: italic; color: #E8184D; }
+
+/* sticky note */
+.sticky {
+  background: #FEFCE8; border: 1px solid #DDD068;
+  border-radius: 3px; padding: 0.8rem 0.9rem 1.1rem;
+  position: relative; margin-bottom: 1rem;
+}
+.sticky::after {
+  content: ''; position: absolute; bottom: 0; right: 0;
+  border-style: solid; border-width: 0 0 12px 12px;
+  border-color: transparent transparent #C8C050 transparent;
+}
+.slbl { font-size: 0.82rem; font-weight: 600; color: #A09040; margin-bottom: 0.3rem; }
+.sbody { font-size: 0.8rem; font-weight: 600; color: #1C1C1E; line-height: 1.45; }
+
+/* section label */
+.seclbl { font-size: 0.82rem; font-weight: 700; color: #E8184D; margin-bottom: 0.75rem; }
+
+/* step pills */
+.steps { display: flex; gap: 0.5rem; }
+.step {
+  flex: 1; background: #FAF7F3;
+  border: 1px solid #E5DDD4; border-radius: 6px;
+  padding: 0.5rem 0.6rem;
+}
+.steplbl { font-size: 0.75rem; font-weight: 600; color: #E8184D; margin-bottom: 0.15rem; }
+.steptitle { font-size: 0.73rem; font-weight: 700; color: #1C1C1E; }
+
+.feel { font-size: 0.72rem; color: #A09080; margin-top: 1rem; }
+.feel strong { color: #6B6058; }
+
+/* font classes */
+.f-mono    { font-family: 'Space Mono', monospace; }
+.f-dancing { font-family: 'Dancing Script', cursive; }
+.f-satisfy { font-family: 'Satisfy', cursive; }
+.f-kalam   { font-family: 'Kalam', cursive; }
+.f-pacifico{ font-family: 'Pacifico', cursive; }
+</style>
+</head>
+<body>
+
+<p class="page-title">Font options — cursive + your favourite</p>
+<p class="page-sub">Space Mono shown for reference. Three cursive alternatives below.</p>
+
+<div class="grid">
+
+  <!-- A: Space Mono (liked) -->
+  <div class="card fav">
+    <div class="card-header">
+      <span class="label">A — Space Mono</span>
+      <span class="badge liked">you liked this</span>
+    </div>
+    <div class="body">
+      <p class="eyebrow f-mono">Olivia Tak · QSS 20 · Dartmouth College · 2026</p>
+      <p class="headline">Does emotional language help a YouTube video <em>go viral?</em></p>
+      <div class="sticky">
+        <p class="slbl f-mono" style="font-size:0.7rem;">key finding</p>
+        <p class="sbody">Neutral titles average 1.42M views. Emotional titles come in lower.</p>
+      </div>
+      <p class="seclbl f-mono" style="font-size:0.72rem;">The Question</p>
+      <div class="steps">
+        <div class="step"><p class="steplbl f-mono" style="font-size:0.66rem;">Step 01</p><p class="steptitle">VADER scoring</p></div>
+        <div class="step"><p class="steplbl f-mono" style="font-size:0.66rem;">Step 02</p><p class="steptitle">3 buckets</p></div>
+        <div class="step"><p class="steplbl f-mono" style="font-size:0.66rem;">Step 03</p><p class="steptitle">Log transform</p></div>
+      </div>
+      <p class="feel">Feels like: <strong>data / code / typewriter</strong></p>
+    </div>
+  </div>
+
+  <!-- B: Dancing Script -->
+  <div class="card">
+    <div class="card-header">
+      <span class="label">B — Dancing Script</span>
+      <span class="badge cursive">cursive</span>
+    </div>
+    <div class="body">
+      <p class="eyebrow f-dancing" style="font-size:1rem;font-weight:600;">Olivia Tak · QSS 20 · Dartmouth College · 2026</p>
+      <p class="headline">Does emotional language help a YouTube video <em>go viral?</em></p>
+      <div class="sticky">
+        <p class="slbl f-dancing" style="font-size:1rem;font-weight:700;">key finding</p>
+        <p class="sbody">Neutral titles average 1.42M views. Emotional titles come in lower.</p>
+      </div>
+      <p class="seclbl f-dancing" style="font-size:1rem;font-weight:700;">The Question</p>
+      <div class="steps">
+        <div class="step"><p class="steplbl f-dancing" style="font-size:0.9rem;font-weight:700;">Step 01</p><p class="steptitle">VADER scoring</p></div>
+        <div class="step"><p class="steplbl f-dancing" style="font-size:0.9rem;font-weight:700;">Step 02</p><p class="steptitle">3 buckets</p></div>
+        <div class="step"><p class="steplbl f-dancing" style="font-size:0.9rem;font-weight:700;">Step 03</p><p class="steptitle">Log transform</p></div>
+      </div>
+      <p class="feel">Feels like: <strong>elegant / flowing / personal</strong></p>
+    </div>
+  </div>
+
+  <!-- C: Satisfy -->
+  <div class="card">
+    <div class="card-header">
+      <span class="label">C — Satisfy</span>
+      <span class="badge cursive">cursive</span>
+    </div>
+    <div class="body">
+      <p class="eyebrow f-satisfy" style="font-size:0.92rem;">Olivia Tak · QSS 20 · Dartmouth College · 2026</p>
+      <p class="headline">Does emotional language help a YouTube video <em>go viral?</em></p>
+      <div class="sticky">
+        <p class="slbl f-satisfy" style="font-size:0.88rem;">key finding</p>
+        <p class="sbody">Neutral titles average 1.42M views. Emotional titles come in lower.</p>
+      </div>
+      <p class="seclbl f-satisfy" style="font-size:0.9rem;">The Question</p>
+      <div class="steps">
+        <div class="step"><p class="steplbl f-satisfy" style="font-size:0.82rem;">Step 01</p><p class="steptitle">VADER scoring</p></div>
+        <div class="step"><p class="steplbl f-satisfy" style="font-size:0.82rem;">Step 02</p><p class="steptitle">3 buckets</p></div>
+        <div class="step"><p class="steplbl f-satisfy" style="font-size:0.82rem;">Step 03</p><p class="steptitle">Log transform</p></div>
+      </div>
+      <p class="feel">Feels like: <strong>confident / vintage script / bold cursive</strong></p>
+    </div>
+  </div>
+
+  <!-- D: Kalam -->
+  <div class="card">
+    <div class="card-header">
+      <span class="label">D — Kalam</span>
+      <span class="badge cursive">handwritten</span>
+    </div>
+    <div class="body">
+      <p class="eyebrow f-kalam" style="font-size:0.9rem;font-weight:700;">Olivia Tak · QSS 20 · Dartmouth College · 2026</p>
+      <p class="headline">Does emotional language help a YouTube video <em>go viral?</em></p>
+      <div class="sticky">
+        <p class="slbl f-kalam" style="font-size:0.9rem;font-weight:700;">key finding</p>
+        <p class="sbody">Neutral titles average 1.42M views. Emotional titles come in lower.</p>
+      </div>
+      <p class="seclbl f-kalam" style="font-size:0.9rem;font-weight:700;">The Question</p>
+      <div class="steps">
+        <div class="step"><p class="steplbl f-kalam" style="font-size:0.82rem;font-weight:700;">Step 01</p><p class="steptitle">VADER scoring</p></div>
+        <div class="step"><p class="steplbl f-kalam" style="font-size:0.82rem;font-weight:700;">Step 02</p><p class="steptitle">3 buckets</p></div>
+        <div class="step"><p class="steplbl f-kalam" style="font-size:0.82rem;font-weight:700;">Step 03</p><p class="steptitle">Log transform</p></div>
+      </div>
+      <p class="feel">Feels like: <strong>casual handwriting / notebook / approachable</strong></p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

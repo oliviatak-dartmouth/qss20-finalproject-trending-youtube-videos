@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=1280"/>
+<title>Direction F — Intentional Scrapbook</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Caveat:wght@500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family:'Inter', sans-serif;
+  background:#F2EDE4;
+  color:#1C1C1E;
+}
+
+/* ── NAV ── */
+nav {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0.9rem 2.5rem;
+  background:#F2EDE4;
+  border-bottom:2px solid #DDD5C8;
+  position:sticky; top:0; z-index:100;
+}
+.nav-logo {
+  display:flex; align-items:center; gap:0.6rem;
+  font-family:'Caveat', cursive;
+  font-size:1.25rem; font-weight:700;
+}
+.yt-btn {
+  width:30px; height:21px; background:#FF0000; border-radius:4px;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.yt-btn::after { content:'▶'; color:#fff; font-size:8px; margin-left:1px; }
+.nav-links { display:flex; gap:2rem; font-size:0.82rem; color:#9A8F82; list-style:none; }
+.nav-links li:hover { color:#1C1C1E; cursor:pointer; }
+
+/* ── HERO ── */
+.hero {
+  max-width:1160px; margin:0 auto;
+  padding:4rem 3rem 3.5rem;
+}
+
+/* hand-label eyebrow */
+.eyebrow {
+  display:flex; align-items:center; gap:0.75rem; margin-bottom:2rem;
+}
+.eyebrow-line { height:1.5px; width:40px; background:#C8BFB0; }
+.eyebrow-text {
+  font-family:'Caveat', cursive;
+  font-size:1.05rem; color:#9A8F82; font-weight:600; letter-spacing:0.02em;
+}
+
+.hero-layout {
+  display:grid; grid-template-columns:1fr 380px; gap:4rem; align-items:start;
+}
+
+.hero h1 {
+  font-family:'DM Serif Display', serif;
+  font-size:3.8rem; font-weight:400; line-height:1.07; letter-spacing:-0.01em;
+  margin-bottom:1.25rem;
+}
+.hero h1 em { font-style:italic; color:#E8184D; }
+.hero-sub { font-size:1rem; color:#6B6058; line-height:1.8; max-width:480px; }
+
+/* RIGHT: sticky note + stat rows — all straight */
+.hero-right { display:flex; flex-direction:column; gap:1rem; }
+
+.sticky {
+  background:#FEFCE8;
+  border:1px solid #DDD068;
+  border-radius:3px;
+  padding:1.4rem 1.5rem 1.8rem;
+  box-shadow:0 3px 12px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.06);
+  position:relative;
+}
+/* folded corner — only decorative detail */
+.sticky::after {
+  content:'';
+  position:absolute; bottom:0; right:0;
+  border-style:solid;
+  border-width:0 0 20px 20px;
+  border-color:transparent transparent #C8C050 transparent;
+}
+.sticky-label {
+  font-family:'Caveat', cursive;
+  font-size:0.92rem; color:#A09040; margin-bottom:0.6rem; display:block;
+}
+.sticky p { font-size:0.93rem; font-weight:600; color:#1C1C1E; line-height:1.55; }
+
+.stat-card {
+  display:flex; align-items:center; justify-content:space-between;
+  background:white;
+  border:1px solid #E0D8CE;
+  border-radius:8px;
+  padding:0.8rem 1.1rem;
+  box-shadow:0 1px 3px rgba(0,0,0,0.05);
+}
+.stat-num { font-size:1.5rem; font-weight:900; letter-spacing:-0.03em; line-height:1; }
+.stat-label { font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#9A8F82; }
+
+/* Sentiment bar — proportional, acts as colour legend */
+.sent-legend { margin-top:2.5rem; }
+.legend-label {
+  font-family:'Caveat', cursive;
+  font-size:0.95rem; color:#9A8F82; font-weight:600; margin-bottom:0.6rem;
+}
+.sent-bar-track {
+  display:flex; border-radius:6px; overflow:hidden; height:12px;
+  border:1px solid #D0C8BE;
+}
+.seg-neg { flex:0.223; background:#F87171; }
+.seg-neu { flex:0.549; background:#FBBF24; }
+.seg-pos { flex:0.228; background:#34D399; }
+.legend-labels {
+  display:flex; gap:1.5rem; margin-top:0.5rem;
+}
+.ll { font-size:0.72rem; font-weight:700; display:flex; align-items:center; gap:0.3rem; }
+.ll-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+
+/* ── TORN PAPER DIVIDER ── */
+.torn-divider {
+  width:100%;
+  height:36px;
+  background:#E8E0D2;
+  clip-path:polygon(
+    0% 40%, 1.5% 0%, 3% 60%, 4.5% 10%, 6% 70%, 7.5% 15%,
+    9% 65%, 10.5% 20%, 12% 55%, 13.5% 5%, 15% 65%, 16.5% 25%,
+    18% 60%, 19.5% 10%, 21% 55%, 22.5% 20%, 24% 70%, 25.5% 15%,
+    27% 60%, 28.5% 10%, 30% 65%, 31.5% 20%, 33% 55%, 34.5% 5%,
+    36% 70%, 37.5% 25%, 39% 60%, 40.5% 10%, 42% 65%, 43.5% 20%,
+    45% 55%, 46.5% 15%, 48% 70%, 49.5% 25%, 51% 55%, 52.5% 10%,
+    54% 65%, 55.5% 20%, 57% 60%, 58.5% 5%, 60% 70%, 61.5% 25%,
+    63% 55%, 64.5% 15%, 66% 65%, 67.5% 20%, 69% 55%, 70.5% 10%,
+    72% 70%, 73.5% 25%, 75% 60%, 76.5% 10%, 78% 65%, 79.5% 20%,
+    81% 55%, 82.5% 5%, 84% 70%, 85.5% 25%, 87% 60%, 88.5% 10%,
+    90% 65%, 91.5% 20%, 93% 55%, 94.5% 15%, 96% 70%, 97.5% 20%,
+    99% 60%, 100% 40%, 100% 100%, 0% 100%
+  );
+  margin-bottom:-1px;
+}
+.section-bg { background:#E8E0D2; }
+
+/* ── SECTIONS ── */
+.section {
+  max-width:1160px; margin:0 auto; padding:3.5rem 3rem;
+}
+.section + .section { border-top:1px solid #D0C8BE; }
+
+.section-header { display:flex; align-items:flex-start; gap:1.5rem; margin-bottom:2rem; }
+.section-num {
+  font-family:'DM Serif Display', serif;
+  font-size:4.5rem; color:#D0C8BE; line-height:0.8; flex-shrink:0; margin-top:6px;
+  user-select:none;
+}
+.section-meta {}
+.section-eyebrow {
+  font-family:'Caveat', cursive;
+  font-size:1rem; color:#E8184D; font-weight:600; margin-bottom:0.3rem;
+}
+.section-title {
+  font-family:'DM Serif Display', serif;
+  font-size:2rem; font-weight:400; line-height:1.2; letter-spacing:-0.01em;
+}
+.section-body {
+  font-size:0.93rem; color:#6B6058; line-height:1.8; max-width:640px; margin-top:0.8rem;
+}
+
+/* ── HYPOTHESIS CARDS ── */
+.hyp-grid { display:grid; grid-template-columns:1fr 44px 1fr; gap:1rem; align-items:center; margin-top:1.75rem; }
+.hyp-card {
+  background:white; border:1px solid #E0D8CE;
+  border-radius:10px; padding:1.4rem;
+  box-shadow:0 1px 4px rgba(0,0,0,0.06);
+}
+.hyp-card.exp { border-top:3px solid #93C5FD; }
+.hyp-card.fnd { border-top:3px solid #FBBF24; }
+.hyp-tag {
+  font-family:'Caveat', cursive;
+  font-size:0.88rem; color:#B0A898; display:block; margin-bottom:0.6rem;
+}
+.hyp-card h3 { font-size:0.95rem; font-weight:700; margin-bottom:0.35rem; line-height:1.35; }
+.hyp-card p  { font-size:0.81rem; color:#7A7068; line-height:1.65; }
+.vs-circle {
+  width:44px; height:44px; background:#E8184D; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.68rem; font-weight:800; color:white; flex-shrink:0;
+  box-shadow:0 3px 10px rgba(232,24,77,0.25);
+}
+
+/* ── SENTIMENT DATA CARDS ── (straight, no rotation) */
+.sent-cards {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-top:1.75rem;
+}
+.sent-card {
+  border-radius:10px; padding:1.5rem;
+  box-shadow:0 1px 4px rgba(0,0,0,0.06);
+  position:relative; overflow:hidden;
+}
+.sent-card.neu { background:#FFFBEB; border:1.5px solid #FBBF24; }
+.sent-card.pos { background:#ECFDF5; border:1.5px solid #34D399; }
+.sent-card.neg { background:#FEF2F2; border:1.5px solid #F87171; }
+/* washi tape strip at top — straight, decorative */
+.sent-card::before {
+  content:''; position:absolute; top:-1px; left:50%; transform:translateX(-50%);
+  width:50px; height:12px; border-radius:0 0 3px 3px;
+  opacity:0.6;
+}
+.sent-card.neu::before { background:#FBBF24; }
+.sent-card.pos::before { background:#34D399; }
+.sent-card.neg::before { background:#F87171; }
+.sc-pct {
+  font-size:2.8rem; font-weight:900; letter-spacing:-0.04em;
+  display:block; line-height:1; margin-bottom:0.3rem; margin-top:0.5rem;
+}
+.sc-name { font-family:'Caveat',cursive; font-size:1.25rem; font-weight:700; }
+.sc-desc { font-size:0.78rem; color:#7A7068; margin-top:0.4rem; line-height:1.5; }
+
+/* ── CHART CARD (washi tape pin) ── */
+.chart-card {
+  background:white; border:1px solid #E0D8CE;
+  border-radius:10px; padding:1.5rem;
+  box-shadow:0 2px 10px rgba(0,0,0,0.07);
+  margin-top:1.25rem; position:relative;
+}
+.tape-strip {
+  position:absolute; top:-9px; left:50%; transform:translateX(-50%);
+  width:64px; height:18px;
+  background:rgba(251,191,36,0.45);
+  border-radius:2px;
+  border:1px solid rgba(200,155,20,0.25);
+}
+.chart-title { font-size:0.85rem; font-weight:700; color:#1C1C1E; margin-bottom:0.2rem; }
+.chart-sub   { font-size:0.74rem; color:#9A8F82; margin-bottom:1.25rem; }
+.bars { display:flex; align-items:flex-end; gap:1.5rem; height:120px; }
+.bar-col { display:flex; flex-direction:column; align-items:center; gap:0.35rem; }
+.bar { width:80px; border-radius:5px 5px 0 0; }
+.bar-num { font-size:0.8rem; font-weight:800; }
+.bar-lbl { font-size:0.71rem; color:#9A8F82; }
+
+.note { font-size:0.72rem; color:#B0A898; text-align:center; padding:2rem; font-style:italic; background:#E8E0D2; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo"><div class="yt-btn"></div> YouTube Virality Study</div>
+  <ul class="nav-links">
+    <li>Question</li><li>Data</li><li>Method</li><li>Results</li><li>Takeaway</li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">
+    <div class="eyebrow-line"></div>
+    <span class="eyebrow-text">QSS 20 · Dartmouth College · 2026</span>
+  </div>
+
+  <div class="hero-layout">
+    <div>
+      <h1>Does emotional language help a YouTube video <em>go viral?</em></h1>
+      <p class="hero-sub">12,176 trending US videos. Sentiment analysis on every title. One finding that goes against what prior research would predict.</p>
+
+      <div class="sent-legend">
+        <div class="legend-label">Sentiment breakdown — all 12,176 titles</div>
+        <div class="sent-bar-track">
+          <div class="seg-neg"></div>
+          <div class="seg-neu"></div>
+          <div class="seg-pos"></div>
+        </div>
+        <div class="legend-labels">
+          <span class="ll"><span class="ll-dot" style="background:#F87171"></span><span style="color:#DC2626">Negative 22.3%</span></span>
+          <span class="ll"><span class="ll-dot" style="background:#FBBF24"></span><span style="color:#D97706">Neutral 54.9%</span></span>
+          <span class="ll"><span class="ll-dot" style="background:#34D399"></span><span style="color:#059669">Positive 22.8%</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="sticky">
+        <span class="sticky-label">✏ key finding</span>
+        <p>Neutral titles get more views than emotional ones. That holds after controlling for content category, channel size, and time on the trending page.</p>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">12,176</span>
+        <span class="stat-label">Unique videos</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num" style="color:#D97706">54.9%</span>
+        <span class="stat-label">Neutral titles</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num" style="color:#E8184D">−0.045</span>
+        <span class="stat-label">Arousal vs views (r)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TORN PAPER into section bg -->
+<div class="torn-divider"></div>
+
+<div class="section-bg">
+  <div class="section">
+
+    <!-- 01 The Question -->
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <div class="section-meta">
+        <div class="section-eyebrow">The Question</div>
+        <h2 class="section-title">Does emotional content go viral? It depends where you look.</h2>
+        <p class="section-body">A 2012 study by Berger and Milkman found that emotionally arousing articles spread further online. But YouTube reaches audiences mostly through its recommendation algorithm, which optimises for watch time rather than social sharing. This project tests whether the same relationship holds.</p>
+      </div>
+    </div>
+    <div class="hyp-grid">
+      <div class="hyp-card exp">
+        <span class="hyp-tag">prior research predicts —</span>
+        <h3>High-arousal titles spread more</h3>
+        <p>Studies on NYT articles and Twitter found emotional content performs better. Arousal activates people, and activated people share.</p>
+      </div>
+      <div class="vs-circle">VS</div>
+      <div class="hyp-card fnd">
+        <span class="hyp-tag">this study found —</span>
+        <h3 style="color:#D97706">Neutral titles win on YouTube</h3>
+        <p>The algorithm rewards watch time, not clicks. Neutral, descriptive titles may convert attention into sustained viewing more reliably.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 02 The Data -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <div class="section-meta">
+        <div class="section-eyebrow">The Data</div>
+        <h2 class="section-title">A full year of US trending videos, labelled by sentiment.</h2>
+        <p class="section-body">Each of the 12,176 titles was scored using VADER sentiment analysis, giving a compound score from −1 to +1. From that, each title got a label (positive, neutral, or negative) and an arousal score measuring emotional intensity regardless of direction.</p>
+      </div>
+    </div>
+
+    <div class="sent-cards">
+      <div class="sent-card neu">
+        <span class="sc-pct" style="color:#D97706">54.9%</span>
+        <span class="sc-name" style="color:#D97706">Neutral</span>
+        <p class="sc-desc">No detectable emotional signal. Over half of trending titles fell here — many are keyword-heavy or non-English.</p>
+      </div>
+      <div class="sent-card pos">
+        <span class="sc-pct" style="color:#059669">22.8%</span>
+        <span class="sc-name" style="color:#059669">Positive</span>
+        <p class="sc-desc">Compound score above 0.05. Most common in Entertainment, Comedy, and Music.</p>
+      </div>
+      <div class="sent-card neg">
+        <span class="sc-pct" style="color:#DC2626">22.3%</span>
+        <span class="sc-name" style="color:#DC2626">Negative</span>
+        <p class="sc-desc">Compound score below −0.05. Highest share in News and Nonprofits categories.</p>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="tape-strip"></div>
+      <div class="chart-title">Average view count by title sentiment</div>
+      <div class="chart-sub">YouTube Trending US, 2023 — 12,176 videos</div>
+      <div class="bars">
+        <div class="bar-col">
+          <div class="bar" style="height:98px;background:#FBBF24;"></div>
+          <div class="bar-num" style="color:#D97706">1.42M</div>
+          <div class="bar-lbl">Neutral</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar" style="height:78px;background:#F87171;"></div>
+          <div class="bar-num" style="color:#DC2626">1.16M</div>
+          <div class="bar-lbl">Negative</div>
+        </div>
+        <div class="bar-col">
+          <div class="bar" style="height:75px;background:#34D399;"></div>
+          <div class="bar-num" style="color:#059669">1.11M</div>
+          <div class="bar-lbl">Positive</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p class="note">Direction F: Intentional scrapbook — warm paper background, no rotations, DM Serif headlines, Caveat only for labels/eyebrows, sticky note finding, washi tape chart accent, torn paper section divider, ghost section numbers, straight colour-coded sentiment cards</p>
+
+</body>
+</html>

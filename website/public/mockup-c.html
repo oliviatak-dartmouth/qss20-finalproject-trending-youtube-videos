@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=1280"/>
+<title>Direction C — Coloured Sections / Social Feed</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; background:#fff; color:#111; }
+
+  nav {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:1rem 2.5rem; background:white; border-bottom:1px solid #eee;
+    position:sticky; top:0; z-index:10;
+  }
+  .nav-logo { font-weight:800; font-size:0.9rem; display:flex; align-items:center; gap:0.5rem; }
+  .nav-dot { width:9px; height:9px; background:#E8184D; border-radius:50%; }
+  .nav-links { display:flex; gap:2rem; font-size:0.82rem; color:#999; list-style:none; }
+
+  /* HERO — gradient tinted */
+  .hero {
+    padding:5.5rem 2.5rem 5rem;
+    background:linear-gradient(135deg, #FFF0F4 0%, #FFF8F0 50%, #F0FFF4 100%);
+    text-align:center;
+  }
+  .hero-tag {
+    display:inline-flex; align-items:center; gap:0.5rem;
+    background:white; border:1px solid #eee;
+    color:#888; padding:0.35rem 1rem; border-radius:999px;
+    font-size:0.7rem; font-weight:600; letter-spacing:0.07em; text-transform:uppercase;
+    margin-bottom:1.5rem; box-shadow:0 1px 4px rgba(0,0,0,0.06);
+  }
+  .hero h1 {
+    font-size:3.5rem; font-weight:900; line-height:1.1; letter-spacing:-0.03em;
+    max-width:740px; margin:0 auto 1.2rem;
+  }
+  .hero h1 em { font-style:normal; color:#E8184D; }
+  .hero-sub { font-size:1rem; color:#777; max-width:460px; margin:0 auto 2.5rem; }
+
+  .finding-card {
+    display:inline-block;
+    background:white; border:2px solid #FBBF24;
+    border-radius:16px; padding:1.3rem 2rem;
+    max-width:520px; margin-bottom:2.5rem;
+    box-shadow:0 4px 24px rgba(0,0,0,0.07);
+  }
+  .fc-label { font-size:0.62rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#D97706; margin-bottom:0.5rem; }
+  .fc-text { font-size:1rem; font-weight:600; color:#111; line-height:1.5; }
+
+  /* 3-column sentiment stat cards — colour coded */
+  .stat-strip {
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1rem;
+    max-width:680px; margin:0 auto;
+  }
+  .sc {
+    border-radius:16px; padding:1.2rem 1.25rem;
+    text-align:center;
+  }
+  .sc-neutral  { background:#FFFBEB; border:1.5px solid #FBBF24; }
+  .sc-negative { background:#FEF2F2; border:1.5px solid #F87171; }
+  .sc-positive { background:#ECFDF5; border:1.5px solid #34D399; }
+  .sc-num { font-size:1.8rem; font-weight:900; letter-spacing:-0.03em; display:block; }
+  .sc-label { font-size:0.7rem; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#888; margin-top:0.2rem; }
+
+  /* COLOR BLOCK SECTIONS */
+  .sec-block { padding:4rem 2.5rem; }
+  .sec-block-inner { max-width:1060px; margin:0 auto; }
+
+  .sec-blue   { background:#EFF6FF; }
+  .sec-white  { background:#ffffff; }
+
+  .sec-label { font-size:0.72rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#E8184D; margin-bottom:0.6rem; }
+  .sec-title { font-size:2.1rem; font-weight:800; letter-spacing:-0.025em; margin-bottom:1rem; }
+  .sec-body  { font-size:0.93rem; color:#555; line-height:1.8; max-width:560px; }
+
+  .hyp-grid { display:grid; grid-template-columns:1fr auto 1fr; gap:1.25rem; align-items:center; margin-top:2rem; }
+  .hyp-card { background:white; border:1px solid #ddd; border-radius:14px; padding:1.5rem; box-shadow:0 1px 4px rgba(0,0,0,0.05); }
+  .hyp-card.exp { border-top:3px solid #93C5FD; }
+  .hyp-card.fnd { border-top:3px solid #FBBF24; }
+  .hyp-tag { font-size:0.62rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#bbb; display:block; margin-bottom:0.75rem; }
+  .hyp-card h3 { font-size:0.95rem; font-weight:700; margin-bottom:0.4rem; }
+  .hyp-card p  { font-size:0.8rem; color:#777; line-height:1.6; }
+  .vs { width:38px; height:38px; background:#E8184D; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.7rem; font-weight:800; color:white; flex-shrink:0; }
+
+  /* Sentiment color preview strip */
+  .sentiment-preview {
+    display:flex; gap:0.6rem; margin-top:1.5rem; flex-wrap:wrap;
+  }
+  .sp-pill {
+    display:flex; align-items:center; gap:0.5rem;
+    padding:0.5rem 1rem; border-radius:999px;
+    font-size:0.8rem; font-weight:700;
+  }
+  .sp-dot { width:9px; height:9px; border-radius:50%; }
+
+  .note { font-size:0.72rem; color:#aaa; margin-top:2rem; text-align:center; font-style:italic; padding:1.5rem; background:#f9f9f9; }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo"><span class="nav-dot"></span>YouTube Virality Study</div>
+  <ul class="nav-links"><li>Question</li><li>Data</li><li>Method</li><li>Results</li><li>Takeaway</li></ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">QSS 20 · Dartmouth College · 2026</div>
+  <h1>Does emotional language help a YouTube video <em>go viral?</em></h1>
+  <p class="hero-sub">12,176 trending US videos. Sentiment analysis on every title. One finding that flips what you'd expect.</p>
+  <div class="finding-card">
+    <div class="fc-label">Key finding</div>
+    <div class="fc-text">Neutral titles get more views than emotional ones, even after controlling for category, channel size, and days on trending.</div>
+  </div>
+  <div class="stat-strip">
+    <div class="sc sc-neutral">
+      <span class="sc-num" style="color:#D97706">1.42M</span>
+      <span class="sc-label">Neutral avg views</span>
+    </div>
+    <div class="sc sc-negative">
+      <span class="sc-num" style="color:#DC2626">1.16M</span>
+      <span class="sc-label">Negative avg views</span>
+    </div>
+    <div class="sc sc-positive">
+      <span class="sc-num" style="color:#059669">1.11M</span>
+      <span class="sc-label">Positive avg views</span>
+    </div>
+  </div>
+  <!-- Sentiment legend -->
+  <div class="sentiment-preview" style="justify-content:center; margin-top:1.25rem;">
+    <div class="sp-pill" style="background:#FFFBEB; border:1.5px solid #FBBF24; color:#D97706;">
+      <span class="sp-dot" style="background:#FBBF24"></span>Neutral (54.9%)
+    </div>
+    <div class="sp-pill" style="background:#ECFDF5; border:1.5px solid #34D399; color:#059669;">
+      <span class="sp-dot" style="background:#34D399"></span>Positive (22.8%)
+    </div>
+    <div class="sp-pill" style="background:#FEF2F2; border:1.5px solid #F87171; color:#DC2626;">
+      <span class="sp-dot" style="background:#F87171"></span>Negative (22.3%)
+    </div>
+  </div>
+</div>
+
+<!-- SECTION — blue tint background -->
+<div class="sec-block sec-blue">
+  <div class="sec-block-inner">
+    <div class="sec-label">01: The Question</div>
+    <h2 class="sec-title">Does emotional content go viral? Depends where you look.</h2>
+    <p class="sec-body">A well-known 2012 study found emotionally charged content spreads more. But YouTube is driven by an algorithm that rewards watch time, not shares. This project tests whether the same rule applies.</p>
+    <div class="hyp-grid">
+      <div class="hyp-card exp">
+        <span class="hyp-tag">Prior research predicts</span>
+        <h3>High arousal titles spread more</h3>
+        <p>Studies on NYT articles and Twitter both found emotional content performs better.</p>
+      </div>
+      <div class="vs">VS</div>
+      <div class="hyp-card fnd">
+        <span class="hyp-tag">This study found</span>
+        <h3 style="color:#D97706">Neutral titles win on YouTube</h3>
+        <p>The algorithm rewards watch time. Neutral titles may convert clicks to sustained viewing more reliably.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p class="note">Direction C: Colour-blocked sections — gradient hero (pink/amber/green tint), white background, each section changes background colour, sentiment colour pills used as a visual legend throughout</p>
+</body>
+</html>

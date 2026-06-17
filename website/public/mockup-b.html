@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=1280"/>
+<title>Direction B — Data Zine / Editorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; background:#FAFAF5; color:#1A1A1A; }
+
+  nav {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:1rem 2.5rem; background:#FAFAF5; border-bottom:1px solid #E8E4DC;
+  }
+  .nav-logo { font-weight:800; font-size:0.9rem; letter-spacing:-0.01em; display:flex; align-items:center; gap:0.5rem; }
+  .nav-dot { width:9px; height:9px; background:#E8184D; border-radius:50%; }
+  .nav-links { display:flex; gap:2rem; font-size:0.82rem; color:#999; list-style:none; }
+
+  /* HERO - editorial big type */
+  .hero {
+    padding:5rem 2.5rem 4rem;
+    background:#FAFAF5;
+    border-bottom:2px solid #1A1A1A;
+  }
+  .hero-inner { max-width:1060px; margin:0 auto; }
+
+  .hero-kicker {
+    display:flex; align-items:center; gap:0.75rem; margin-bottom:1.5rem;
+  }
+  .kicker-line { flex:1; height:1px; background:#1A1A1A; max-width:60px; }
+  .kicker-text { font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#999; }
+
+  .hero-layout { display:grid; grid-template-columns:1fr 340px; gap:4rem; align-items:start; }
+
+  .hero h1 {
+    font-family:'DM Serif Display', serif;
+    font-size:3.8rem; font-weight:400; line-height:1.08;
+    letter-spacing:-0.01em; margin-bottom:1.5rem;
+  }
+  .hero h1 em { font-style:italic; color:#E8184D; }
+
+  .hero-sub { font-size:0.95rem; color:#666; line-height:1.8; max-width:480px; }
+
+  /* Right column — finding + stats */
+  .hero-right { padding-top:0.5rem; }
+
+  .finding-block {
+    background:#1A1A1A; color:#fff;
+    border-radius:14px; padding:1.5rem;
+    margin-bottom:1.25rem;
+  }
+  .fb-label { font-size:0.62rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#FBBF24; margin-bottom:0.6rem; }
+  .fb-text  { font-size:0.95rem; font-weight:600; line-height:1.5; }
+
+  .stats-col { display:flex; flex-direction:column; gap:0.75rem; }
+  .stat-row {
+    display:flex; align-items:baseline; justify-content:space-between;
+    padding:0.75rem 1rem; background:#fff;
+    border:1px solid #E8E4DC; border-radius:10px;
+  }
+  .stat-row .n { font-size:1.6rem; font-weight:900; letter-spacing:-0.03em; }
+  .stat-row .l { font-size:0.72rem; color:#999; font-weight:600; text-transform:uppercase; letter-spacing:0.05em; }
+
+  /* Colour band section divider */
+  .color-band { display:flex; height:6px; }
+  .cb-neg { flex:0.223; background:#F87171; }
+  .cb-neu { flex:0.549; background:#FBBF24; }
+  .cb-pos { flex:0.228; background:#34D399; }
+
+  /* Section */
+  .section { padding:4rem 2.5rem; max-width:1060px; margin:0 auto; }
+  .sec-label { font-size:0.7rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#E8184D; margin-bottom:0.6rem; }
+  .sec-title { font-family:'DM Serif Display',serif; font-size:2.2rem; font-weight:400; letter-spacing:-0.01em; margin-bottom:1rem; }
+  .sec-body  { font-size:0.93rem; color:#666; line-height:1.8; max-width:580px; }
+
+  .hyp-grid { display:grid; grid-template-columns:1fr auto 1fr; gap:1.25rem; align-items:center; margin-top:2rem; }
+  .hyp-card { background:#fff; border:1px solid #E8E4DC; border-radius:14px; padding:1.5rem; }
+  .hyp-card.exp { border-top:3px solid #93C5FD; }
+  .hyp-card.fnd { border-top:3px solid #FBBF24; }
+  .hyp-tag { font-size:0.62rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:#bbb; display:block; margin-bottom:0.75rem; }
+  .hyp-card h3 { font-size:0.95rem; font-weight:700; margin-bottom:0.4rem; }
+  .hyp-card p  { font-size:0.8rem; color:#777; line-height:1.6; }
+  .vs { width:38px; height:38px; background:#E8184D; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.7rem; font-weight:800; color:white; flex-shrink:0; }
+
+  .note { font-size:0.72rem; color:#aaa; margin-top:3rem; text-align:center; font-style:italic; padding:1rem; }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo"><span class="nav-dot"></span>YouTube Virality Study</div>
+  <ul class="nav-links"><li>Question</li><li>Data</li><li>Method</li><li>Results</li><li>Takeaway</li></ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-kicker">
+      <div class="kicker-line"></div>
+      <span class="kicker-text">QSS 20 · Dartmouth College · 2026</span>
+      <div class="kicker-line"></div>
+    </div>
+    <div class="hero-layout">
+      <div>
+        <h1>Does emotional language make a YouTube video <em>go viral?</em></h1>
+        <p class="hero-sub">12,176 trending US videos. Sentiment analysis on every title. One finding that goes against what the research predicts.</p>
+      </div>
+      <div class="hero-right">
+        <div class="finding-block">
+          <div class="fb-label">Key finding</div>
+          <div class="fb-text">Neutral titles get more views than emotional ones. That holds after controlling for category, channel size, and time on trending.</div>
+        </div>
+        <div class="stats-col">
+          <div class="stat-row"><span class="n">12,176</span><span class="l">Unique videos</span></div>
+          <div class="stat-row"><span class="n" style="color:#FBBF24">54.9%</span><span class="l">Neutral titles</span></div>
+          <div class="stat-row"><span class="n" style="color:#E8184D">−0.045</span><span class="l">Arousal vs views (r)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="color-band"><div class="cb-neg"></div><div class="cb-neu"></div><div class="cb-pos"></div></div>
+
+<div class="section">
+  <div class="sec-label">01: The Question</div>
+  <h2 class="sec-title">Does emotional content go viral? Depends where you look.</h2>
+  <p class="sec-body">A well-known 2012 study found emotionally charged content spreads more. But YouTube works differently — it's driven by an algorithm that rewards watch time, not shares. This project tests whether the same rule applies.</p>
+  <div class="hyp-grid">
+    <div class="hyp-card exp">
+      <span class="hyp-tag">Prior research predicts</span>
+      <h3>High arousal titles spread more</h3>
+      <p>Studies on NYT articles and Twitter both found emotional content performs better.</p>
+    </div>
+    <div class="vs">VS</div>
+    <div class="hyp-card fnd">
+      <span class="hyp-tag">This study found</span>
+      <h3 style="color:#D97706">Neutral titles win on YouTube</h3>
+      <p>The algorithm rewards watch time. Neutral, descriptive titles may convert clicks to sustained viewing more reliably.</p>
+    </div>
+  </div>
+</div>
+
+<p class="note">Direction B: Data Zine / Editorial — warm cream background, serif headline font, big asymmetric layout, sentiment color band as divider, dark finding card</p>
+</body>
+</html>

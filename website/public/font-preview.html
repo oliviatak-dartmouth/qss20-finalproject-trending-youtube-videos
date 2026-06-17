@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=1280"/>
+<title>Font Options Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=DM+Serif+Display:ital@0;1&family=Space+Mono:wght@400;700&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Syne:wght@600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: #FAF7F3;
+  color: #1C1C1E;
+  padding: 3rem 2rem;
+}
+
+.page-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.8rem;
+  margin-bottom: 0.3rem;
+}
+.page-sub {
+  font-size: 0.85rem;
+  color: #A09080;
+  margin-bottom: 2.5rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.option {
+  background: white;
+  border: 1px solid #E5DDD4;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+}
+
+.option-header {
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid #F0EBE3;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.opt-name {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #A09080;
+}
+.opt-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 99px;
+  background: #FEF2F2;
+  color: #E8184D;
+}
+.opt-badge.rec { background: #ECFDF5; color: #059669; }
+
+.option-body {
+  padding: 1.5rem 1.25rem;
+}
+
+/* Hero snippet per option */
+.hero-snip {
+  margin-bottom: 1.25rem;
+}
+.eyebrow { margin-bottom: 0.5rem; font-size: 0.95rem; }
+.headline {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.6rem;
+  line-height: 1.15;
+  margin-bottom: 0.75rem;
+}
+.headline em { font-style: italic; color: #E8184D; }
+
+/* Accent font classes */
+.f-space  { font-family: 'Space Mono', monospace; }
+.f-courier { font-family: 'Courier Prime', monospace; }
+.f-syne   { font-family: 'Syne', sans-serif; }
+.f-instr  { font-family: 'Instrument Serif', serif; font-style: italic; }
+
+/* Mini site elements */
+.mini-section-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #E8184D;
+  margin-bottom: 0.25rem;
+}
+.mini-sticky {
+  background: #FEFCE8;
+  border: 1px solid #DDD068;
+  border-radius: 3px;
+  padding: 0.9rem 1rem 1.2rem;
+  position: relative;
+  margin-bottom: 1rem;
+}
+.mini-sticky::after {
+  content: '';
+  position: absolute; bottom: 0; right: 0;
+  border-style: solid; border-width: 0 0 14px 14px;
+  border-color: transparent transparent #C8C050 transparent;
+}
+.sticky-lbl { font-size: 0.85rem; font-weight: 600; color: #A09040; margin-bottom: 0.35rem; }
+.sticky-body { font-size: 0.82rem; font-weight: 600; color: #1C1C1E; line-height: 1.5; }
+
+.mini-steps {
+  display: flex; gap: 0.75rem;
+}
+.mini-step {
+  flex: 1;
+  background: #FAF7F3;
+  border: 1px solid #E5DDD4;
+  border-radius: 6px;
+  padding: 0.65rem 0.75rem;
+}
+.step-label { font-size: 0.8rem; font-weight: 600; color: #E8184D; margin-bottom: 0.2rem; }
+.step-title { font-size: 0.76rem; font-weight: 700; color: #1C1C1E; }
+
+.divider {
+  height: 1px; background: #F0EBE3; margin: 1rem 0;
+}
+
+.sample-sizes {
+  display: flex; gap: 0.5rem; align-items: baseline; margin-top: 0.75rem;
+}
+.sz { font-size: 0.72rem; color: #A09080; }
+.sz span { color: #1C1C1E; font-weight: 600; margin-left: 0.25rem; }
+
+</style>
+</head>
+<body>
+
+<p class="page-title">Font options for accent labels</p>
+<p class="page-sub">DM Serif Display stays as the headline font throughout. Only the small labels, eyebrows, and tags change.</p>
+
+<div class="grid">
+
+  <!-- OPTION 1: Space Mono -->
+  <div class="option">
+    <div class="option-header">
+      <span class="opt-name">Option A — Space Mono</span>
+      <span class="opt-badge rec">my pick</span>
+    </div>
+    <div class="option-body">
+      <div class="hero-snip">
+        <p class="eyebrow f-space" style="color:#A09080;font-size:0.8rem;">Olivia Tak · QSS 20 · Dartmouth College · 2026</p>
+        <p class="headline">Does emotional language help a YouTube video <em>go viral?</em></p>
+      </div>
+
+      <div class="mini-sticky">
+        <p class="sticky-lbl f-space" style="font-size:0.72rem;">key finding</p>
+        <p class="sticky-body">Neutral titles average 1.42M views. Emotional titles come in lower.</p>
+      </div>
+
+      <p class="mini-section-label f-space" style="font-size:0.75rem;">The Question</p>
+
+      <div class="mini-steps">
+        <div class="mini-step">
+          <p class="step-label f-space" style="font-size:0.72rem;">Step 01</p>
+          <p class="step-title">VADER scoring</p>
+        </div>
+        <div class="mini-step">
+          <p class="step-label f-space" style="font-size:0.72rem;">Step 02</p>
+          <p class="step-title">3 buckets</p>
+        </div>
+        <div class="mini-step">
+          <p class="step-label f-space" style="font-size:0.72rem;">Step 03</p>
+          <p class="step-title">Log transform</p>
+        </div>
+      </div>
+      <div class="sample-sizes">
+        <p class="sz f-space">Feels like: <span>typewriter / code / data project</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION 2: Courier Prime -->
+  <div class="option">
+    <div class="option-header">
+      <span class="opt-name">Option B — Courier Prime</span>
+      <span class="opt-badge">classic</span>
+    </div>
+    <div class="option-body">
+      <div class="hero-snip">
+        <p class="eyebrow f-courier" style="color:#A09080;font-size:0.85rem;">Olivia Tak · QSS 20 · Dartmouth College · 2026</p>
+        <p class="headline">Does emotional language help a YouTube video <em>go viral?</em></p>
+      </div>
+
+      <div class="mini-sticky">
+        <p class="sticky-lbl f-courier" style="font-size:0.78rem;">key finding</p>
+        <p class="sticky-body">Neutral titles average 1.42M views. Emotional titles come in lower.</p>
+      </div>
+
+      <p class="mini-section-label f-courier" style="font-size:0.8rem;">The Question</p>
+
+      <div class="mini-steps">
+        <div class="mini-step">
+          <p class="step-label f-courier" style="font-size:0.75rem;">Step 01</p>
+          <p class="step-title">VADER scoring</p>
+        </div>
+        <div class="mini-step">
+          <p class="step-label f-courier" style="font-size:0.75rem;">Step 02</p>
+          <p class="step-title">3 buckets</p>
+        </div>
+        <div class="mini-step">
+          <p class="step-label f-courier" style="font-size:0.75rem;">Step 03</p>
+          <p class="step-title">Log transform</p>
+        </div>
+      </div>
+      <div class="sample-sizes">
+        <p class="sz f-courier">Feels like: <span>printed document / warm typewriter</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION 3: Syne -->
+  <div class="option">
+    <div class="option-header">
+      <span class="opt-name">Option C — Syne</span>
+      <span class="opt-badge">editorial</span>
+    </div>
+    <div class="option-body">
+      <div class="hero-snip">
+        <p class="eyebrow f-syne" style="color:#A09080;font-size:0.8rem;font-weight:700;letter-spacing:0.04em;">Olivia Tak · QSS 20 · Dartmouth College · 2026</p>
+        <p class="headline">Does emotional language help a YouTube video <em>go viral?</em></p>
+      </div>
+
+      <div class="mini-sticky">
+        <p class="sticky-lbl f-syne" style="font-size:0.75rem;font-weight:700;">key finding</p>
+        <p class="sticky-body">Neutral titles average 1.42M views. Emotional titles come in lower.</p>
+      </div>
+
+      <p class="mini-section-label f-syne" style="font-size:0.78rem;font-weight:800;letter-spacing:0.04em;">The Question</p>
+
+      <div class="mini-steps">
+        <div class="mini-step">
+          <p class="step-label f-syne" style="font-size:0.72rem;font-weight:800;">Step 01</p>
+          <p class="step-title">VADER scoring</p>
+        </div>
+        <div class="mini-step">
+          <p class="step-label f-syne" style="font-size:0.72rem;font-weight:800;">Step 02</p>
+          <p class="step-title">3 buckets</p>
+        </div>
+        <div class="mini-step">
+          <p class="step-label f-syne" style="font-size:0.72rem;font-weight:800;">Step 03</p>
+          <p class="step-title">Log transform</p>
+        </div>
+      </div>
+      <div class="sample-sizes">
+        <p class="sz f-syne" style="font-weight:600;">Feels like: <span>magazine / editorial / modern</span></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION 4: Instrument Serif italic -->
+  <div class="option">
+    <div class="option-header">
+      <span class="opt-name">Option D — Instrument Serif</span>
+      <span class="opt-badge">elegant</span>
+    </div>
+    <div class="option-body">
+      <div class="hero-snip">
+        <p class="eyebrow f-instr" style="color:#A09080;font-size:0.95rem;">Olivia Tak · QSS 20 · Dartmouth College · 2026</p>
+        <p class="headline">Does emotional language help a YouTube video <em>go viral?</em></p>
+      </div>
+
+      <div class="mini-sticky">
+        <p class="sticky-lbl f-instr" style="font-size:0.9rem;">key finding</p>
+        <p class="sticky-body">Neutral titles average 1.42M views. Emotional titles come in lower.</p>
+      </div>
+
+      <p class="mini-section-label f-instr" style="font-size:0.9rem;">The Question</p>
+
+      <div class="mini-steps">
+        <div class="mini-step">
+          <p class="step-label f-instr" style="font-size:0.85rem;">Step 01</p>
+          <p class="step-title">VADER scoring</p>
+        </div>
+        <div class="mini-step">
+          <p class="step-label f-instr" style="font-size:0.85rem;">Step 02</p>
+          <p class="step-title">3 buckets</p>
+        </div>
+        <div class="mini-step">
+          <p class="step-label f-instr" style="font-size:0.85rem;">Step 03</p>
+          <p class="step-title">Log transform</p>
+        </div>
+      </div>
+      <div class="sample-sizes">
+        <p class="sz f-instr" style="font-size:0.85rem;">Feels like: <span>refined / understated / academic</span></p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
