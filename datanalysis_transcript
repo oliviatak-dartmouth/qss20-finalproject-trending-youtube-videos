@@ -1,0 +1,210 @@
+
+
+**Q:** ok so my prof said i need to narrow down my research topic a lot more. i want to do something with virality on social media and i think sentiment in titles could matter. but virality is affected by so many things like creator popularity, timing, algorithm. how do i even make a researchable question out of this when there are so many confounds?
+
+**A:** The key is to test one specific mechanism rather than trying to explain all of virality. Frame it as: "Does emotional tone in YouTube video titles predict view counts, controlling for creator size and content category?" You're not claiming to explain everything, just testing whether one factor matters after holding others constant. Picking one platform and a bounded time window also keeps it tractable.
+
+---
+
+**Q:** wait also we dont just have to do arousal. should we also add the component of positive vs negative titles and which has more virality? so that is adding another layer of analysis there?
+
+**A:** Yes, and that makes your project significantly stronger. Split into two layers: Layer 1 (arousal) asks whether emotional intensity regardless of direction predicts virality, using abs(compound score). Layer 2 (valence) asks whether positive or negative titles perform better. These are two distinct testable claims and give you more to discuss.
+
+---
+
+**Q:** ok what is the actual analysis plan then. like what tests. i am not a statistics person so i want to understand the flow before i start coding anything
+
+**A:** Full plan in plain English: (1) Calculate arousal score as abs(VADER compound) so both angry and excited titles score high. (2) Histogram to check distributions and sanity check your data. (3) Spearman correlation between arousal and log(views) with a p-value. (4) Boxplot of log(views) by sentiment label. (5) T-test comparing positive vs negative titled videos. (6) OLS regression adding category as a control. That is the whole thing. Steps 1-4 are your core analysis, 5-6 make it stronger.
+
+---
+
+**Q:** why do we do spearman and not pearson for the correlation? we didnt really cover that distinction in class
+
+**A:** Pearson correlation assumes a roughly linear relationship and works best when both variables are normally distributed. Your view counts are heavily right-skewed (a few videos have 100M views, most have 100K), so the distribution assumption is violated. Spearman uses the ranks of the values instead of the raw values, so it handles that skew without requiring transformation. It is more appropriate for social media data.
+
+---
+
+**Q:** ok so i loaded the youtube data and have 40K rows but lots of videos appear multiple times because they were trending on different days. which row do i keep? and my view counts look really different per day for the same video
+
+**A:** Keep the first appearance per unique video ID. You want one observation per video, not per day. Keeping the first trending date gives you a consistent snapshot. If you kept the last, some videos would have accumulated views from longer trending periods and that would confound your results.
+
+---
+
+**Q:** i made a histogram of view counts and it is insanely skewed. like most videos are around 100K but then a few are at 100M. does this break my analysis? what do i do about it?
+
+**A:** This is called a power-law distribution and it is very common for social media data. It does not break your analysis but you need to handle it. Log-transform your view count variable (use np.log1p to handle any zeros). This compresses the extreme values and makes your regression assumptions more reasonable. Report results in terms of log(views) and note in your paper that you used this transformation.
+
+---
+
+**Q:** so the arousal score is literally just abs(compound)? that seems too simple. am i missing something?
+
+**A:** That is genuinely it. df["arousal_score"] = df["compound"].abs(). The elegance is in the idea, not the formula. A compound of -0.9 (angry title) and +0.9 (excited title) both give you arousal of 0.9. A neutral "Tuesday vlog" title gives ~0.0. This operationalization directly maps onto Berger and Milkman's claim that both high-positive and high-negative arousal drive sharing.
+
+---
+
+**Q:** ok so i ran VADER on my titles and like 80% are coming back as neutral. that seems really high. is VADER broken or is that normal for this kind of data?
+
+**A:** Not broken, this is expected. VADER uses a narrow band for neutral (-0.05 to 0.05 compound), so titles without obviously emotional vocabulary default to neutral. "iPhone 15 Review" or "Vlog Day 42" get labeled neutral because VADER finds no sentiment-bearing words. It is a known limitation of dictionary-based tools on short, factual social media text. Worth noting in your limitations section.
+
+---
+
+**Q:** but titles like "SHOCKING: iPhone Battery EXPLODES" are getting negative scores around -0.4 even though these are viral clickbait titles. shouldnt those be scoring as high arousal?
+
+**A:** VADER is working correctly. It identifies words like "explodes" and "shocking" as negative-valence words and scores them accordingly. The issue is a conceptual one: VADER measures semantic sentiment (does this text express negative emotion?) not psychological impact on the reader. YouTube creators use negative-emotion words to create urgency and capture attention, not to express genuine negativity about the topic. VADER has no way to distinguish between a bad review and a clickbait title using the same words. This is actually an interesting limitation to discuss in your paper.
+
+---
+
+**Q:** given that VADER is marking urgency titles as negative, does that mean my Layer 2 finding (negative vs positive) might actually be capturing "urgency language" rather than real negative sentiment? how do i think about that?
+
+**A:** Yes, that is a real confound and it is good that you caught it. Your "negative titles get more views" finding might actually mean "urgency language gets more views" since VADER conflates the two. You can acknowledge this in your interpretation: your results are consistent with either explanation and you cannot distinguish them with VADER alone. This is an honest limitation and makes your discussion more sophisticated, not weaker.
+
+---
+
+**Q:** i want to add more features beyond just the VADER score. like i noticed some viral videos have all caps or exclamation marks. how do i decide what features are worth adding and which ones are just noise?
+
+**A:** Add features that have a theoretical reason to matter based on your research question. Caps ratio (what percentage of letters are uppercase) is justified because it signals emphasis. Exclamation and question mark counts are justified because punctuation signals urgency. Title word count is worth including as a control since length correlates with information density. Has_number (binary, does the title contain digits like "5 ways to...") is justified by the numbered list pattern you likely see in your top videos. Avoid adding features just because you can engineer them.
+
+---
+
+**Q:** i ran my OLS regression with statsmodels and got a bunch of output but i don't really know how to read it. can you explain what i'm looking at and which parts actually matter for my research question?
+
+**A:** Focus on four things: (1) the coefficient for your main predictor (arousal_score or sentiment) tells you the estimated change in log(views) for a one-unit increase. (2) The p-value for that coefficient tells you whether it is statistically distinguishable from zero. (3) R-squared tells you what proportion of variance in views your whole model explains. (4) The coefficients for your control variables (category, subscriber count) tell you how much those confounds matter. The F-statistic at the bottom tests whether the model as a whole is significant.
+
+---
+
+**Q:** my R-squared is only 0.18. i'm worried that means my findings are weak or that i did something wrong. is 0.18 bad?
+
+**A:** For predicting social media virality, 0.18 is actually reasonable and publishable. Virality has dozens of factors you cannot observe: the algorithm, the thumbnail, timing, whether the video got shared on Reddit or Twitter, the creator's fanbase loyalty, random chance. Explaining 18% of variance with just title features and category is a meaningful finding. If R-squared were 0.80 you would actually be suspicious something was wrong. Report it honestly and contextualize it in your discussion.
+
+---
+
+**Q:** how do i interpret a regression coefficient when my outcome is log(views)? like if sentiment has a coefficient of 0.18, what does that actually mean in plain English?
+
+**A:** In a log-linear regression, a coefficient of 0.18 means a one-unit increase in your predictor is associated with approximately 18% more views (technically it is e^0.18 - 1 = 19.7%, but 18% is a reasonable approximation for small coefficients). So if arousal score increases by 1 (maximum possible change), you predict about 18% more views. For smaller effects like a 0.1 unit increase in arousal, it would be about 1.8% more views.
+
+---
+
+**Q:** i noticed that gaming videos get way more views than education videos on average. but i also think gaming titles might be more emotionally intense. so how do i know if my arousal finding is real or if it's just picking up the fact that gaming = more views?
+
+**A:** You identified a classic confounder. Category predicts both the predictor (arousal) and the outcome (views), which means it could explain away your arousal effect. The way to handle it is to include category as a control variable in your regression. Then you are asking: "within the same category, do higher arousal titles get more views?" You can also show the regression results with and without the category control to be transparent about how much the effect changes.
+
+---
+
+**Q:** ok so i checked and my arousal effect goes from 0.26 to 0.08 when i add category controls. does that mean my original finding was mostly just picking up category differences?
+
+**A:** It means category explains part of the arousal-views relationship, but not all of it. The effect did not disappear, it shrank. The honest interpretation is: some of the arousal advantage comes from the fact that emotional content clusters in high-view categories like gaming. But within any given category, higher arousal titles still predict more views. Both the controlled and uncontrolled estimates are worth reporting and discussing.
+
+---
+
+**Q:** i want to compare view counts across my three sentiment groups (positive, neutral, negative). my instinct was to run three t-tests. is that right?
+
+**A:** Three separate t-tests would inflate your false positive rate. Each test has a 5% chance of false positives at alpha=0.05, but running three tests compounds that error. Use a one-way ANOVA instead, which tests whether any of the three groups differ simultaneously. If ANOVA is significant, you can then run post-hoc pairwise comparisons with a Tukey correction, which adjusts for multiple comparisons.
+
+---
+
+**Q:** what is a Tukey test and why do i need it after ANOVA? we didn't cover this in class
+
+**A:** ANOVA tells you that at least one pair of groups differs but not which pair. Tukey's Honest Significant Difference test does all pairwise comparisons (positive vs neutral, positive vs negative, neutral vs negative) while controlling the overall false positive rate. Without it, you'd have to run three t-tests and inflate your error rate. With Tukey, you can say specifically "neutral titles outperform negative titles (p < 0.01) but do not significantly differ from positive titles (p = 0.12)."
+
+---
+
+**Q:** i ran the ANOVA and it's significant but then my prof mentioned effect size. what is eta-squared and how do i know if 0.06 is good or bad for my analysis?
+
+**A:** Eta-squared measures what proportion of variance in your outcome is explained by your grouping variable. Common benchmarks are 0.01 (small), 0.06 (medium), 0.14 (large). Your 0.06 sits right at medium. Whether that is "good" depends on context: for a single variable like title sentiment predicting something as complex as social media virality, medium effect size is actually a meaningful finding. It would be different if you were predicting something tightly controlled in a lab experiment.
+
+---
+
+**Q:** do i need to check any assumptions before i trust my regression results? my professor mentioned this but i don't know what that means practically
+
+**A:** Yes, there are four main ones worth checking. First, linearity: plot your residuals against fitted values. If there is a curve or pattern, you may have a nonlinear relationship. Second, homoscedasticity: the residuals should have roughly constant spread across fitted values, not fan out. Third, normality of residuals: a Q-Q plot should show points roughly along the diagonal line. Fourth, no severe multicollinearity: check that your predictors are not too highly correlated with each other using a correlation matrix. The log transformation you already did helps with the first two.
+
+---
+
+**Q:** i ran a correlation matrix and exclamation marks and all-caps are correlated at 0.5. is that a problem for my regression?
+
+**A:** 0.5 is moderate and generally not a serious problem. Multicollinearity becomes concerning above 0.8 or so, where it starts making individual coefficients unstable and hard to interpret. At 0.5, you can keep both variables. If you wanted to be conservative you could drop one, but the more informative choice is to keep both and note in your paper that they are correlated, so interpret their individual coefficients with some caution.
+
+---
+
+**Q:** my results show neutral titles get more views than emotional ones. but Berger and Milkman's paper says high arousal content spreads more. am i contradicting prior literature or am i doing something wrong?
+
+**A:** You may be extending rather than contradicting it. Berger and Milkman studied whether content with emotionally arousing topics gets shared more (think news articles about emotionally charged subjects). You are studying whether emotionally worded titles get more views. These are different things. The video content itself might still carry the arousal, while the title works differently as a click-through signal. Your finding is worth discussing honestly as either a context-dependent result or a methodological distinction, not as proof they were wrong.
+
+---
+
+**Q:** i found that the correlation between sentiment and views is actually negative (r = -0.12 with Spearman). so more negative sentiment predicts more views? that seems backwards from what i expected
+
+**A:** This is a real and interesting finding. It likely reflects the urgency/clickbait phenomenon we discussed earlier: titles with words like "WARNING," "SHOCKING," and "EXPLODES" score as negative sentiment with VADER but drive clicks effectively. So the negative correlation is probably capturing "urgency language correlates with views" not "negativity itself drives views." This ambiguity in interpretation is worth discussing explicitly and is actually the most interesting part of your results.
+
+---
+
+**Q:** my prof wants me to write about whether my findings would generalize. i have 2017-2018 US YouTube trending data. what are the actual limits of what i can claim?
+
+**A:** Several important scope limitations. Time period: YouTube's algorithm and creator landscape changed significantly after 2018, so title strategy effects may differ now. Geography: US trending may have different patterns than other markets. Platform: YouTube title dynamics differ from TikTok (no title), Twitter, or Instagram. Category composition: your dataset is not a random sample of YouTube, it is specifically the trending page, which has its own selection effects. And critically, you cannot claim causation. Titles do not cause virality; it is possible that creators who make better videos also write more engaging titles.
+
+---
+
+**Q:** how should i word the limitations around VADER specifically? like what are the actual technical things wrong with it for my use case
+
+**A:** Four specific limitations are well-documented. First, VADER was built on English text, so non-English titles in your US dataset default to neutral scores. Second, it cannot detect sarcasm or irony, which affects interpretation. Third, it treats each word independently without understanding context (so "not great" might not score as negative). Fourth, while VADER handles some common emojis, it misses YouTube-specific emoji usage patterns. A precise way to put it: "VADER's dictionary-based approach may misclassify urgency language, non-English titles, and context-dependent sentiment, likely biasing our neutral category upward."
+
+---
+
+**Q:** i want to also look at whether the relationship between arousal and views is different across video categories. like does high arousal matter more for gaming vs news? how would i even test that?
+
+**A:** You are describing an interaction effect. In regression terms, you would add an interaction term: arousal_score * category. The coefficient on the interaction tells you whether the arousal-views slope differs by category. In pandas/statsmodels you can write the formula as "log_views ~ arousal_score * C(category)" using the formula API. This is an extension beyond your main analysis so it would go in a supplementary or robustness check section, not your main results.
+
+---
+
+**Q:** is there a way to show which specific title features matter most? like i want to know if exclamation marks matter more than all caps. is there a cleaner way than just looking at regression coefficients?
+
+**A:** In a standardized regression you would first z-score all your continuous predictors so coefficients are in the same units and directly comparable. For binary predictors like has_exclamation vs has_allcaps you can compare coefficients directly since they are already on a 0/1 scale. You can also look at partial correlations for each predictor controlling for the others. The cleanest presentation is usually a coefficient plot showing the estimate and confidence interval for each predictor side by side.
+
+---
+
+**Q:** wait what is a confidence interval and how is it different from a p-value? i keep seeing both and im confused about which one i should report
+
+**A:** A p-value tells you the probability of seeing a result this extreme if the true effect were zero. It is a binary signal about statistical significance. A confidence interval tells you the plausible range of the true effect size. A 95% confidence interval means: if you repeated this study many times, 95% of the intervals you computed would contain the true value. Confidence intervals are more informative because they show both the direction and the uncertainty around your estimate. Best practice is to report both.
+
+---
+
+**Q:** i have a section in my paper where i need to describe my data. what are the key descriptive statistics i should report and why does each one matter?
+
+**A:** For your main variables report: mean and standard deviation for continuous variables (arousal score, log views, subscriber count), count and percentage for categorical variables (how many positive/neutral/negative titles, category breakdown), min/max to show the range, and median for skewed variables like raw view counts. Also report your final sample size and how you got there (started with 40K, deduplicated to X, dropped missing titles to get final N). These descriptives let readers assess whether your data looks like what they would expect from YouTube trending videos.
+
+---
+
+**Q:** when i graph views by category as a bar chart the bars are in alphabetical order. how do i sort them by value?
+
+**A:** Chain .sort_values(ascending=False) before .plot(). The full line: df.groupby("category")["log_views"].mean().sort_values(ascending=False).plot(kind="bar"). This reorders the index by the values before plotting.
+
+---
+
+**Q:** i got a ModuleNotFoundError for vaderSentiment. i installed it but it still doesn't work
+
+**A:** Run !pip install vaderSentiment in a notebook cell, note the capital S. Then restart your kernel (Kernel > Restart) before reimporting. The kernel needs to reload after installing.
+
+---
+
+**Q:** i have three videos with 500 billion views in my data which is obviously wrong. do i drop them or keep them?
+
+**A:** Drop them. These are data entry errors (YouTube has not had 500 billion views total across all videos ever). Check a few other suspicious outliers the same way. Document how many rows you dropped for data quality reasons in your cleaning notebook so your process is transparent and reproducible.
+
+---
+
+**Q:** my notebook is getting really long and messy. my prof wants separate scripts for data pull, cleaning, analysis, and visualization. what is the right way to pass data between notebooks?
+
+**A:** Save the output of each notebook as a CSV to a shared data folder, and load it in the next notebook. So 00_data_pull.ipynb reads the raw Kaggle CSV and saves data/USvideos_raw.csv. 01_clean.ipynb reads that and saves data/USvideos_clean.csv. 02_analyze.ipynb reads clean and saves data/USvideos_sentiment.csv. 03_visualize.ipynb reads sentiment and saves figures to output/. Each notebook is self-contained and the data folder acts as the handoff between them.
+
+---
+
+**Q:** i have this text in my latex paper that says "Every Country On Earth Fights For $250,000" and compiling gives me an error. what is wrong?
+
+**A:** LaTeX interprets the dollar sign as the start of a math environment. Escape it with a backslash: \$250,000. Same fix applies anywhere you have a literal dollar sign in your text.
+
+---
+
+**Q:** if someone replicated this study on a different YouTube dataset from 2023 or 2024 would they find the same results? how do i talk about that in my paper?
+
+**A:** Honestly and carefully. You can say your findings are consistent with the hypothesis that title sentiment predicts virality, but that replication on other time periods and platforms is needed to establish generalizability. YouTube's algorithm, trending criteria, and creator strategies have changed significantly since 2017-2018. The specific coefficients would likely differ. The direction of the main effect might hold but you cannot claim that from your data alone.
+
