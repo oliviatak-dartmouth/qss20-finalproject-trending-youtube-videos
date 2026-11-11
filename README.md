@@ -1,7 +1,12 @@
-# YouTube Trending Video Sentiment Analysis
+# Do Emotional YouTube Titles Go Viral?
 
-**QSS 20 Final Project | Olivia Tak | Spring 2026**
-Website here: https://website2-five-mauve.vercel.app/
+**Does the emotional tone of a YouTube title predict how many views it gets?** I scored 12,176 trending video titles with VADER sentiment analysis and found that emotional titles do not win. After controlling for category, channel activity and days trending, positive titles are associated with about 6% fewer views than neutral ones and negative titles with about 5% fewer.
+
+**QSS 20 Final Project | Olivia Tak | Dartmouth College | Spring 2026**
+
+- Interactive results site: https://website2-five-mauve.vercel.app/
+- Full paper: [QSS_20_Olivia_Tak_Final_Project_Paper...pdf](QSS_20_Olivia_Tak_Final_Project_Paper__Does_the_emotional_tone_and_arousal_of_YouTube_trending_video_titles_predict_their_virality_.pdf)
+- Tools: Python, pandas, VADER (vaderSentiment), statsmodels (OLS), SciPy, matplotlib, seaborn, Jupyter, React + Vite
 
 ## Research Question
 
@@ -9,14 +14,14 @@ Does the emotional tone and arousal of YouTube trending video titles predict the
 
 ## Project Summary
 
-This project examines whether the emotional tone of a YouTube video title can predict how viral it gets. I used VADER sentiment analysis to score each title in two ways: arousal (how emotionally intense the title is, regardless of positive or negative direction) and sentiment label (positive, negative, or neutral). I then compared these scores against view counts, likes, and comments across 12,176 unique trending videos from 2023. The analysis tests whether Berger and Milkman's (2012) arousal-virality hypothesis — established in a sharing-based context — holds on YouTube, where content is amplified algorithmically based on watch time.
+This project examines whether the emotional tone of a YouTube video title can predict how viral it gets. I used VADER sentiment analysis to score each title in two ways: arousal (how emotionally intense the title is, regardless of positive or negative direction) and sentiment label (positive, negative, or neutral). I then compared these scores against view counts, likes, and comments across 12,176 unique trending videos from 2023. The analysis tests whether Berger and Milkman's (2012) arousal-virality hypothesis, established in a sharing-based context, holds on YouTube, where content is amplified algorithmically based on watch time.
 
 ## Repository Structure
 
 ```
-code/       — numbered notebooks in run order
-data/       — raw and processed datasets (not tracked in git; see Data section below)
-output/     — saved figures (.png)
+code/      , numbered notebooks in run order
+data/      , raw and processed datasets (not tracked in git; see Data section below)
+output/    , saved figures (.png)
 ```
 
 ## Notebooks
@@ -43,8 +48,9 @@ Run the notebooks in order:
 
 ## Key Findings
 
+- Positive titles are associated with about 6% fewer views than neutral titles, and negative titles about 5% fewer, holding category, channel activity and days trending constant (OLS on log views, R2 = 0.21)
 - Neutral-titled videos outperform emotionally charged ones on all virality metrics (views, likes, comments), even after controlling for content category, channel activity, and days on the trending page in an OLS regression
 - The continuous arousal score is negatively correlated with log views (Pearson r = -0.045), meaning more emotionally intense titles are associated with slightly fewer views
 - Days on the trending page does not differ meaningfully by sentiment group
-- Category is a stronger predictor of virality than sentiment — Film & Animation, Music, and Entertainment have the highest average view counts regardless of title tone
+- Category is a stronger predictor of virality than sentiment, Film & Animation, Music, and Entertainment have the highest average view counts regardless of title tone
 - These findings run counter to Berger and Milkman's (2012) prediction that high-arousal content should be more viral, suggesting the mechanism may differ on algorithmically-driven platforms
